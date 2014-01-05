@@ -1,0 +1,58 @@
+body{
+	min-width: 250px;
+	background: #EEE;
+	margin: 10px;
+}
+
+#header{
+	display: none;
+	width: 250px;
+	height: 30px;
+	margin-bottom: 6px;
+}
+
+#showColors{
+	width: 250px;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.colorItem{
+	width: 230px;
+	height: 20px;
+	vertical-align: middle;
+	padding: 8px 10px 8px 10px;
+	cursor: pointer;
+}
+
+.colorTxt{
+	font-family: 'Karla', sans-serif;
+	float: left;
+}
+
+.copied{
+	font-family: 'Cantora One', sans-serif;
+	float: right;
+	display: none;
+	opacity: 0;
+}
+
+#failedArea{
+	padding: 4px 12px 4px 12px;
+
+}
+
+#failedTitle{
+	font-family: 'mplus-1p-medium', 'Cantora One', sans-serif;
+	font-size: 18px;
+}
+
+#failedTxtEng{
+	font-family: 'Karla', sans-serif;
+	font-size: 14px;
+}
+
+#failedTxtJpn{
+	font-family: mplus-1p-medium;
+	font-size: 12px;
+}
