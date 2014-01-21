@@ -1,16 +1,30 @@
 body{
 	min-width: 250px;
-	background: #EEE;
-	margin: 10px;
+	background: #FFF;
+	margin: 20px;
 }
 
 #header{
-	display: none;
 	width: 250px;
-	height: 30px;
-	margin-bottom: 6px;
+	/*height: 30px;*/
+	/*margin-bottom: 20px;*/
+	text-align: center;
+	font-family: "游ゴシック体", "Yu Gothic", YuGothic, sans-serif;
 }
 
+.countArea{
+	margin: 6px;
+}
+
+.countNum{
+	font-size: 24px;
+}
+
+.commentArea{
+	margin: 24px;
+}
+
+/*
 #showColors{
 	width: 250px;
 	border-radius: 10px;
@@ -55,4 +69,4 @@ body{
 #failedTxtJpn{
 	font-family: mplus-1p-medium;
 	font-size: 12px;
-}
+}*/
