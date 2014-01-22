@@ -7,6 +7,7 @@ body{
 }
 
 #showCountArea{
+	display: none;
 }
 
 #showCountTxtArea{
@@ -32,15 +33,8 @@ body{
 	text-align: right;
 }
 
-a {
-	text-decoration: underline;
-}
-
-a:hover {
-	cursor: pointer;
-}
-
 #showInputArea{
+	display: inline;
 }
 
 #inputArea{

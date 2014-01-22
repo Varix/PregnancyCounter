@@ -18,7 +18,8 @@
 <link rel=stylesheet type="text/css" href="styles.css">
 </head>
 <body>
-	<!-- <div id="showCountArea">
+	<!-- 妊娠週数を表示するエリア -->
+	<div id="showCountArea">
 		<div id="showCountTxtArea">
 			<div class="countTxtArea">現在</div>
 			<div class="countTxtArea">妊娠 <span class="countTxt">36</span> 週 <span class="countTxt">3</span> 日</div>
@@ -26,18 +27,66 @@
 			<div class="commentArea">あとちょっとで産まれるよ！</div>
 		</div>
 		<div id="resetArea">
-			<span><a herf="#">出産予定日をリセット</a></span>
+			<button id="resetPregnancyDate" class="btn btn-mini btn-link" type="button">出産予定日をリセット</button>
 		</div>
-	</div> -->
+	</div>
+	<!-- 出産予定日を入力するエリア -->
 	<div id="showInputArea">
 		<div id="inputArea">
 			<div class="countTxtArea">出産予定日</div>
-			<input type="text" class="input-mini" placeholder="2014"> 年 
-			<input type="text" class="input-mini" placeholder="1"> 月 
-			<input type="text" class="input-mini" placeholder="12"> 日
+			<input id="inputYYYY" type="text" class="input-mini" placeholder="西暦"> 年 
+			<!-- <input id="inputMM" type="text" class="input-mini"> 月  -->
+			<select id="inputMM" class="span1">
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+				<option>8</option>
+				<option>9</option>
+				<option>10</option>
+				<option>11</option>
+				<option>12</option>
+			</select> 月 
+			<!-- <input id="inputDD" type="text" class="input-mini"> 日 -->
+			<select id="inputMM" class="span1">
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+				<option>8</option>
+				<option>9</option>
+				<option>10</option>
+				<option>11</option>
+				<option>12</option>
+				<option>13</option>
+				<option>14</option>
+				<option>15</option>
+				<option>16</option>
+				<option>17</option>
+				<option>18</option>
+				<option>19</option>
+				<option>20</option>
+				<option>21</option>
+				<option>22</option>
+				<option>23</option>
+				<option>24</option>
+				<option>25</option>
+				<option>26</option>
+				<option>27</option>
+				<option>28</option>
+				<option>29</option>
+				<option>30</option>
+				<option>31</option>
+			</select> 日
 		</div>
 		<div id="inputBtnArea">
-			<button id="" class="btn btn-primary btn-small" type="button">設定</button>
+			<button id="setPregnancyDate" class="btn btn-primary btn-small" type="button">設定</button>
 		</div>
 	</div>
 </body>

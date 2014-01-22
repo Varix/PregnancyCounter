@@ -5,7 +5,51 @@
 // - 妊娠月週日に合わせたアドバイスやテキストを表示するようにしたい。
 /////////////////////////////////
 
+/////////////////////////////////
+// 変数の準備
+/////////////////////////////////
+// background.js を読み込む
+var bg = chrome.extension.getBackgroundPage();
 
+// 出産予定日を保存したかどうか判別するフラグ変数
+var flag = "NO"; // 初期値はNO (NO = 保存してない / YES = 保存してある)
+
+// 出産予定日を保存しておくための変数
+var YYYY = "";
+var MM = "";
+var DD = "";
+
+
+/////////////////////////////////
+// 初期表示
+/////////////////////////////////
+$(function () {
+	console.log("始まったぞ");
+	// 設定ボタンを押したら
+	$("#setPregnancyDate").click(
+		function(){
+			console.log("設定ボタンを押したぞ");
+			// インプット入力エリアを非表示にして、妊娠週を表示する
+			$("#showInputArea").css({display:"none"});
+			$("#showCountArea").css({display:"inline"});
+		}
+	);
+	// リセットボタンを押したら
+	$("#resetPregnancyDate").click(
+		function(){
+			console.log("リセットを押したぞ");
+			// インプット入力エリアを非表示にして、妊娠週を表示する
+			$("#showInputArea").css({display:"inline"});
+			$("#showCountArea").css({display:"none"});
+		}
+	);
+	// $("#setPregnancyDate").click(
+	// 	// console.log("押したぞ");
+	// 	// 出産予定日を入力したらインプット入力エリアを非表示にして、妊娠週を表示する
+	// 	$("#showInputArea").css({display:"none"});
+	// 	$("#showCountArea").css({display:"inline"});
+	// );
+});
 
 
 
@@ -29,30 +73,13 @@
 
 // });
 
-// /////////////////////////////////
-// // 変数の準備
-// /////////////////////////////////
-// // background.js を読み込む
-// //var bg = chrome.extension.getBackgroundPage();
-// var bg = chrome.extension.getBackgroundPage();
-	
-// // 色情報をRGB/HEX形式で保存しておくための配列
-// var cRGB = [];
-// var cHEX = [];
-	
-// // RGB値を個別に保存しておくための配列
-// var cR = [];
-// var cG = [];
-// var cB = [];
-// var txtColor = [];
-
-// // 色種類の表示種類を設定するための変数
-// var colorType = ""; // 初期値は空
 
 
-// /////////////////////////////////
-// // popup.html に表示するものを記述
-// /////////////////////////////////
+/////////////////////////////////
+// popup.html に表示するものを記述
+/////////////////////////////////
+
+
 // var showColors = function(tab){
 	
 // 	// console.log(tab);
@@ -151,19 +178,21 @@
 // 	}
 // }
 
-// /////////////////////////////////
-// // 表示する色形式(RGB/HEX)をボタンで設定
-// /////////////////////////////////
-// var setColorType = function(clickColorType) {
-// 	console.log("clickColorType = " + clickColorType);
-// 	//console.log(colorType);
+/////////////////////////////////
+// 出産予定日を記録
+/////////////////////////////////
+// var setPregnancyDate = function() {
+// 	$("#setPregnancyDate").click(
 
-// 	// 変数 colorType に文字列 RGB または HEX を格納
-// 	colorType = clickColorType; 
-// 	// ローカルストレージに記録
-// 	localStorage.colorType = colorType; 
+// 		// ローカルストレージに記録
+// 		localStorage.yyyy = ("#inputYYYY").text();
+// 		localStorage.mm = ("#inputMM").text();
+// 		localStorage.dd = ("#inputYYYY").text();
 
-// 	chrome.tabs.getSelected(showColors);
+// 		console.log(localStorage.yyyy);
+// 	);
+
+// 	var flag = "YES";
 // }
 
 // /////////////////////////////////
@@ -187,21 +216,6 @@
 // 				});
 // 		}
 // 	);
-// }
-
-// /////////////////////////////////
-// // テキストをクリップボードにコピー
-// /////////////////////////////////
-// // クリップボードへのコピーはテキストフォームでしかできないので
-// // テキストエリアをフェイクで作ってそこにテキストを格納してコピー
-// // 参考URL: http://stackoverflow.com/questions/3436102/copy-to-clipboard-in-chrome-extension
-// var copyTextToClipboard = function(txt){
-// 	var copyArea = $("<textarea/>");
-// 	copyArea.text(txt);
-// 	$("body").append(copyArea);
-// 	copyArea.select();
-// 	document.execCommand("copy");
-// 	copyArea.remove();
 // }
 
 // /////////////////////////////////
