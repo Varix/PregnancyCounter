@@ -19,6 +19,12 @@ var YYYY = "";
 var MM = "";
 var DD = "";
 
+// 出産予定日から計算した妊娠週数＆日数を格納するための変数
+var WW = "36";
+var WD = "3";
+
+// 出産予定日から計算した妊娠月数を格納するための変数
+var WM = "10";
 
 /////////////////////////////////
 // 初期表示
@@ -29,28 +35,36 @@ $(function () {
 	$("#setPregnancyDate").click(
 		function(){
 			console.log("設定ボタンを押したぞ");
-			// インプット入力エリアを非表示にして、妊娠週を表示する
+			// 出産予定日入力エリアを非表示にして、妊娠週を表示する
 			$("#showInputArea").css({display:"none"});
 			$("#showCountArea").css({display:"inline"});
+			// 出産予定日を保存したフラグをYESに変更
+			flag = "YES";
+			// 妊娠週数＆月数を表示画面に設定する
+			setPregnancyDateTxt();
 		}
 	);
 	// リセットボタンを押したら
 	$("#resetPregnancyDate").click(
 		function(){
 			console.log("リセットを押したぞ");
-			// インプット入力エリアを非表示にして、妊娠週を表示する
+			// 妊娠週を非表示にして、出産予定日入力エリアを表示する
 			$("#showInputArea").css({display:"inline"});
 			$("#showCountArea").css({display:"none"});
+			// 出産予定日を保存したフラグをNOに変更
+			flag = "NO";
 		}
 	);
-	// $("#setPregnancyDate").click(
-	// 	// console.log("押したぞ");
-	// 	// 出産予定日を入力したらインプット入力エリアを非表示にして、妊娠週を表示する
-	// 	$("#showInputArea").css({display:"none"});
-	// 	$("#showCountArea").css({display:"inline"});
-	// );
 });
 
+/////////////////////////////////
+// 妊娠週数＆月数を表示画面に設定する
+/////////////////////////////////
+var setPregnancyDateTxt = function(){
+	$("#setWW").text(WW);
+	$("#setWD").text(WD);
+	$("#setWM").text(WM);
+}
 
 
 // $(function(){
