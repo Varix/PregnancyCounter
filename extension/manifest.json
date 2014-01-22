@@ -1,5 +1,5 @@
 {
-    "name": "Pregnancy Counter",
+    "name": "Pregnancy Counter - 妊娠カウンター",
     "description": "現在の妊娠週数をバッヂに表示するExtensionです。妊婦さん本人はもちろん、妻・友人・家族の妊娠週数を把握しておきたい、などでご活用ください。",
     "version": "0.1",
 	"manifest_version": 2,
@@ -16,7 +16,7 @@
 	},
     "browser_action": {
         "default_icon": "img/icon_19.png",
-        "default_title": "Color Thief - 色泥棒",
+        "default_title": "Pregnancy Counter - 妊娠カウンター",
 		"default_popup": "popup.html"
     },
 	"content_scripts": [

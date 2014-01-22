@@ -1,72 +1,55 @@
 body{
 	min-width: 250px;
 	background: #FFF;
-	margin: 20px;
-}
-
-#header{
-	width: 250px;
-	/*height: 30px;*/
-	/*margin-bottom: 20px;*/
-	text-align: center;
+	margin: 10px;
+	font-size: 12px;
 	font-family: "游ゴシック体", "Yu Gothic", YuGothic, sans-serif;
 }
 
-.countArea{
+#showCountArea{
+}
+
+#showCountTxtArea{
+	width: 280px;
+	margin: 20px;
+	text-align: center;
+}
+
+.countTxtArea{
 	margin: 6px;
 }
 
-.countNum{
+.countTxt{
 	font-size: 24px;
 }
 
 .commentArea{
-	margin: 24px;
+	margin: 6px;
 }
 
-/*
-#showColors{
-	width: 250px;
-	border-radius: 10px;
-	overflow: hidden;
+#resetArea{
+	font-size: 8px;
+	text-align: right;
 }
 
-.colorItem{
-	width: 230px;
-	height: 20px;
-	vertical-align: middle;
-	padding: 8px 10px 8px 10px;
+a {
+	text-decoration: underline;
+}
+
+a:hover {
 	cursor: pointer;
 }
 
-.colorTxt{
-	font-family: 'Karla', sans-serif;
-	float: left;
+#showInputArea{
 }
 
-.copied{
-	font-family: 'Cantora One', sans-serif;
-	float: right;
-	display: none;
-	opacity: 0;
+#inputArea{
+	width: 280px;
+	margin: 20px;
+	text-align: center;
 }
 
-#failedArea{
-	padding: 4px 12px 4px 12px;
-
+#inputBtnArea{
+	margin: 20px;
+	text-align: center;
 }
-
-#failedTitle{
-	font-family: 'mplus-1p-medium', 'Cantora One', sans-serif;
-	font-size: 18px;
-}
-
-#failedTxtEng{
-	font-family: 'Karla', sans-serif;
-	font-size: 14px;
-}
-
-#failedTxtJpn{
-	font-family: mplus-1p-medium;
-	font-size: 12px;
-}*/
