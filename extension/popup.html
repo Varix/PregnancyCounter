@@ -13,6 +13,7 @@
 <link rel=stylesheet type="text/css" href="lib/bootstrap.min.css">
 <!-- other liblary -->
 <!-- <script src="lib/rgbcolor.js"></script> -->
+<script src="lib/xdate.js"></script>
 <!-- chrome extension files -->
 <script src="js/popup.js"></script>
 <link rel=stylesheet type="text/css" href="styles.css">
@@ -22,9 +23,9 @@
 	<div id="showCountArea">
 		<div id="showCountTxtArea">
 			<div class="countTxtArea">現在</div>
-			<div class="countTxtArea">妊娠 <span id="setWW" class="countTxt">XX</span> 週 <span id="setWD" class="countTxt">X</span> 日</div>
-			<div class="countTxtArea">( <span id="setWM" class="countTxt">XX</span> ヶ月)</div>
-			<div class="commentArea">あとちょっとで産まれるよ！</div>
+			<div class="countTxtArea">妊娠 <span id="setPWeek" class="countTxt">XX</span> 週 <span id="setPDay" class="countTxt">X</span> 日</div>
+			<div class="countTxtArea">( <span id="setPMonth" class="countTxt">XX</span> ヶ月)</div>
+			<div class="commentArea">あと <span id="setPCountdownDays" class="countTxt">XX</span> 日で産まれるよ！</div>
 		</div>
 		<div id="resetArea">
 			<button id="resetPregnancyDate" class="btn btn-mini btn-link" type="button">出産予定日をリセット</button>
@@ -51,7 +52,7 @@
 				<option>12</option>
 			</select> 月 
 			<!-- <input id="inputDD" type="text" class="input-mini"> 日 -->
-			<select id="inputMM" class="span1">
+			<select id="inputDD" class="span1">
 				<option>1</option>
 				<option>2</option>
 				<option>3</option>

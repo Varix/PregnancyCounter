@@ -34,7 +34,7 @@ body{
 }
 
 #showInputArea{
-	display: inline;
+	display: none;
 }
 
 #inputArea{

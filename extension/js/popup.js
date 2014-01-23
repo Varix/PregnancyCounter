@@ -1,71 +1,169 @@
 /////////////////////////////////
 // # TODO
-// - 出産予定日を入力して保存するようにしたい。
 // - 妊娠月週日を表示するようにしたい。
+// - 出産予定日を入力して保存するようにしたい。
 // - 妊娠月週日に合わせたアドバイスやテキストを表示するようにしたい。
 /////////////////////////////////
 
 /////////////////////////////////
 // 変数の準備
 /////////////////////////////////
-// background.js を読み込む
-var bg = chrome.extension.getBackgroundPage();
-
 // 出産予定日を保存したかどうか判別するフラグ変数
-var flag = "NO"; // 初期値はNO (NO = 保存してない / YES = 保存してある)
+// var saveFlag = "NO"; // 初期値はNO (NO = 保存してない / YES = 保存してある)
+localStorage.saveFlag = "";
 
 // 出産予定日を保存しておくための変数
-var YYYY = "";
-var MM = "";
-var DD = "";
+localStorage.YYYY = "";
+localStorage.MM = "";
+localStorage.DD = "";
 
-// 出産予定日から計算した妊娠週数＆日数を格納するための変数
-var WW = "36";
-var WD = "3";
-
-// 出産予定日から計算した妊娠月数を格納するための変数
-var WM = "10";
+// 出産予定日から計算した妊娠週＆日＆月数を格納するための変数
+var PWeek = "";
+var PDay = "";
+var PMonth = "";
+var PCountdownDays = "";
 
 /////////////////////////////////
 // 初期表示
 /////////////////////////////////
 $(function () {
+
 	console.log("始まったぞ");
+	console.log("localStorage.saveFlag = " + localStorage.saveFlag);
+
+	// 出産予定日をセットしていなかった "localStorage.saveFlag" が "" または "NO" の場合
+	if(localStorage.saveFlag != "YES"){
+
+		// 出産予定日入力エリアを表示する
+		$("#showCountArea").css({display:"none"});
+		$("#showInputArea").css({display:"inline"});
+
+		// 出産予定日を指定して設定ボタン押下
+		setPregnancyDate();
+
+	// 出産予定日をセットしていた "localStorage.saveFlag" が "YES" の場合
+	}else if(localStorage.saveFlag == "YES"){
+
+		// 出産予定日入力エリアを非表示にして、妊娠週を表示する
+		$("#showCountArea").css({display:"inline"});
+		$("#showInputArea").css({display:"none"});
+
+	};
+
+	// 出産予定日をリセット
+	resetPregnancyDate();
+
+
+});
+
+/////////////////////////////////
+// 出産予定日を指定して設定ボタンを押す処理
+/////////////////////////////////
+var setPregnancyDate = function(){
 	// 設定ボタンを押したら
 	$("#setPregnancyDate").click(
 		function(){
-			console.log("設定ボタンを押したぞ");
-			// 出産予定日入力エリアを非表示にして、妊娠週を表示する
-			$("#showInputArea").css({display:"none"});
-			$("#showCountArea").css({display:"inline"});
+
 			// 出産予定日を保存したフラグをYESに変更
-			flag = "YES";
+			localStorage.saveFlag = "YES";
+			
+			// 入力された出産予定日を変数に格納
+			localStorage.YYYY = $("#inputYYYY").val();
+			localStorage.MM = $("#inputMM").val();
+			localStorage.DD = $("#inputDD").val();
+			
+			// 出産予定日から妊娠週数＆月数を計算
+			countPregnancyDate(localStorage.YYYY, localStorage.MM, localStorage.DD);
+
 			// 妊娠週数＆月数を表示画面に設定する
 			setPregnancyDateTxt();
+
+			// 出産予定日入力エリアを非表示にして、妊娠週エリアを表示する
+			$("#showCountArea").css({display:"inline"});
+			$("#showInputArea").css({display:"none"});
+
+			// デバッグ
+			console.log("設定ボタンを押したぞ");
+			// console.log("localStorage.saveFlag = " + localStorage.saveFlag);
+
 		}
 	);
-	// リセットボタンを押したら
-	$("#resetPregnancyDate").click(
-		function(){
-			console.log("リセットを押したぞ");
-			// 妊娠週を非表示にして、出産予定日入力エリアを表示する
-			$("#showInputArea").css({display:"inline"});
-			$("#showCountArea").css({display:"none"});
-			// 出産予定日を保存したフラグをNOに変更
-			flag = "NO";
-		}
-	);
-});
+}
+/////////////////////////////////
+// 妊娠週数＆月数を出産予定日から計算する
+/////////////////////////////////
+var countPregnancyDate = function(YYYY, MM, DD){
+
+	// 今日の日付をXDateオブジェクトとして格納
+	var TODAY = new XDate();
+
+	// 出産予定日の日付をXDateオブジェクトとして格納
+	var DUEDATE = new XDate(YYYY, MM - 1, DD);
+
+	// 出産予定日から今日が妊娠何週何日かを計算
+	// (出産予定日 - 今日) / 7 = 残り何週か
+	// (出産予定日 - 今日) % 7 = 残り何日か
+	// Math.ceil() で数字切り上げ
+	var diffWeek = Math.ceil((Math.ceil(TODAY.diffDays(DUEDATE))) / 7);
+	var diffDay = (Math.ceil(TODAY.diffDays(DUEDATE))) % 7;
+
+	// 満期40週から差分を引くと現在の妊娠週数
+	PWeek = 40 - diffWeek;
+	PDay = 7 - diffDay;
+	// (現在の週数 * 7) + 日数 を 28日 で割って数値を切り上げると現在の妊娠月数
+	PMonth = Math.ceil((Number((PWeek * 7)) + Number(PDay)) / 28);
+	PCountdownDays = Math.ceil(TODAY.diffDays(DUEDATE));
+
+	// デバッグ
+	console.log("今日は " + TODAY.toString("yyyy/M/d"));
+	console.log("出産予定日は " + DUEDATE.toString("yyyy/M/d"));
+	console.log("妊娠週数は " + PWeek + "週" + PDay + "日");
+	console.log("出産予定日まであと " + Math.ceil(TODAY.diffDays(DUEDATE)) + " 日");
+}
 
 /////////////////////////////////
 // 妊娠週数＆月数を表示画面に設定する
 /////////////////////////////////
 var setPregnancyDateTxt = function(){
-	$("#setWW").text(WW);
-	$("#setWD").text(WD);
-	$("#setWM").text(WM);
+	$("#setPWeek").text(PWeek);
+	$("#setPDay").text(PDay);
+	$("#setPMonth").text(PMonth);
+	$("#setPCountdownDays").text(PCountdownDays);
 }
 
+/////////////////////////////////
+// 出生予定日をリセットする処理
+/////////////////////////////////
+var resetPregnancyDate = function(){
+	// リセットボタンを押したら
+	$("#resetPregnancyDate").click(
+		function(){
+
+			// 出産予定日を保存したフラグをNOに変更
+			localStorage.saveFlag = "NO";
+
+			// 妊娠週を非表示にして、出産予定日入力エリアを表示する
+			$("#showCountArea").css({display:"none"});
+			$("#showInputArea").css({display:"inline"});
+
+			// 出産予定日や計算した妊娠週数を空にする
+			localStorage.YYYY = "";
+			localStorage.MM = "";
+			localStorage.DD = "";
+			PWeek = "";
+			PDay = "";
+			PMonth = "";
+			PCountdownDays = "";
+			TODAY = "";
+			DUEDATE = "";
+
+			// デバッグ
+			console.log("リセットを押したぞ");
+			// console.log("localStorage.saveFlag = " + localStorage.saveFlag);
+
+		}
+	);
+}
 
 // $(function(){
 
@@ -192,23 +290,6 @@ var setPregnancyDateTxt = function(){
 // 	}
 // }
 
-/////////////////////////////////
-// 出産予定日を記録
-/////////////////////////////////
-// var setPregnancyDate = function() {
-// 	$("#setPregnancyDate").click(
-
-// 		// ローカルストレージに記録
-// 		localStorage.yyyy = ("#inputYYYY").text();
-// 		localStorage.mm = ("#inputMM").text();
-// 		localStorage.dd = ("#inputYYYY").text();
-
-// 		console.log(localStorage.yyyy);
-// 	);
-
-// 	var flag = "YES";
-// }
-
 // /////////////////////////////////
 // // 色情報をクリックしたらクリップボードにコピー＆アニメーション
 // /////////////////////////////////
@@ -230,20 +311,4 @@ var setPregnancyDateTxt = function(){
 // 				});
 // 		}
 // 	);
-// }
-
-// /////////////////////////////////
-// // 背景色によってテキスト色を白/黒どちらにするか判別する
-// /////////////////////////////////
-// // 参考式: Y=0.3R+0.6G+0.1B で Y>127なら黒、それ以外なら白
-// // 参考URL: http://q.hatena.ne.jp/1214314649
-// var checkTxtColor = function(cR,cG,cB){
-
-// 	// 最高値は255なので、約半分の数値127を堺目にして白/黒の判別する
-// 	var cY = 0.3*cR + 0.6*cG + 0.1*cB;
-	
-// 	if(cY > 127){
-// 		return "#111111"; // 黒に設定
-// 	}
-// 	return "#EEEEEE"; // 白に設定
 // }
