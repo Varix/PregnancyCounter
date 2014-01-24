@@ -1,3 +1,4 @@
 designAssets/
 _old/
 _tmp/
+*/*.zip
