@@ -11,22 +11,6 @@
 // background.js を読み込む
 var bg = chrome.extension.getBackgroundPage();
 
-// 出産予定日を保存したかどうか判別するフラグ変数
-// var saveFlag = "NO"; // 初期値はNO (NO = 保存してない / YES = 保存してある)
-localStorage.saveFlag = "";
-
-// 出産予定日を保存しておくための変数
-localStorage.YYYY = "";
-localStorage.MM = "";
-localStorage.DD = "";
-var DUEDATE = ""
-
-// 出産予定日から計算した妊娠週＆日＆月数を格納するための変数
-var PWeek = "";
-var PDay = "";
-var PMonth = "";
-var PCountdownDays = "";
-
 /////////////////////////////////
 // 初期表示
 /////////////////////////////////
@@ -34,6 +18,7 @@ $(function () {
 
 	console.log("始まったぞ");
 	console.log("localStorage.saveFlag = " + localStorage.saveFlag);
+	console.log("bg.PWeekDay = " + bg.PWeekDay);
 
 	// 出産予定日をセットしていなかった "localStorage.saveFlag" が "" または "NO" の場合
 	if(localStorage.saveFlag != "YES"){
@@ -88,7 +73,8 @@ var setPregnancyDate = function(){
 
 			// デバッグ
 			console.log("設定ボタンを押したぞ");
-			// console.log("localStorage.saveFlag = " + localStorage.saveFlag);
+			console.log("localStorage.saveFlag = " + localStorage.saveFlag);
+			console.log("bg.PWeekDay = " + bg.PWeekDay);
 
 		}
 	);
@@ -102,38 +88,41 @@ var countPregnancyDate = function(YYYY, MM, DD){
 	var TODAY = new XDate();
 
 	// 出産予定日の日付をXDateオブジェクトとして格納
-	DUEDATE = new XDate(YYYY, MM - 1, DD);
+	bg.DUEDATE = new XDate(YYYY, MM - 1, DD);
 
 	// 出産予定日から今日が妊娠何週何日かを計算
 	// (出産予定日 - 今日) / 7 = 残り何週か
 	// (出産予定日 - 今日) % 7 = 残り何日か
 	// Math.ceil() で数字切り上げ
-	var diffWeek = Math.ceil((Math.ceil(TODAY.diffDays(DUEDATE))) / 7);
-	var diffDay = (Math.ceil(TODAY.diffDays(DUEDATE))) % 7;
+	var diffWeek = Math.ceil((Math.ceil(TODAY.diffDays(bg.DUEDATE))) / 7);
+	var diffDay = (Math.ceil(TODAY.diffDays(bg.DUEDATE))) % 7;
 
 	// 満期40週から差分を引くと現在の妊娠週数
-	PWeek = 40 - diffWeek;
-	PDay = 7 - diffDay;
+	bg.PWeek = 40 - diffWeek;
+	bg.PDay = 7 - diffDay;
 	// (現在の週数 * 7) + 日数 を 28日 で割って数値を切り上げると現在の妊娠月数
-	PMonth = Math.ceil((Number((PWeek * 7)) + Number(PDay)) / 28);
-	PCountdownDays = Math.ceil(TODAY.diffDays(DUEDATE));
+	bg.PMonth = Math.ceil((Number((bg.PWeek * 7)) + Number(bg.PDay)) / 28);
+	bg.PCountdownDays = Math.ceil(TODAY.diffDays(bg.DUEDATE));
+	bg.PWeekDay = bg.PWeek + "w" + bg.PDay + "d";
 
 	// デバッグ
 	console.log("今日は " + TODAY.toString("yyyy/M/d"));
-	console.log("出産予定日は " + DUEDATE.toString("yyyy/M/d"));
-	console.log("妊娠週数は " + PWeek + "週" + PDay + "日");
-	console.log("出産予定日まであと " + Math.ceil(TODAY.diffDays(DUEDATE)) + " 日");
+	console.log("出産予定日は " + bg.DUEDATE.toString("yyyy/M/d"));
+	console.log("妊娠週数は " + bg.PWeek + "週" + bg.PDay + "日");
+	console.log("出産予定日まであと " + Math.ceil(TODAY.diffDays(bg.DUEDATE)) + " 日");
+	console.log("バッヂに表示するテキストは " + bg.PWeek + "w" + bg.PDay + "d");
 }
 
 /////////////////////////////////
 // 妊娠週数＆月数を表示画面に設定する
 /////////////////////////////////
 var setPregnancyDateTxt = function(){
-	$("#setDUEDATE").text(DUEDATE.toString("yyyy/M/d"));
-	$("#setPWeek").text(PWeek);
-	$("#setPDay").text(PDay);
-	$("#setPMonth").text(PMonth);
-	$("#setPCountdownDays").text(PCountdownDays);
+	$("#setDUEDATE").text(bg.DUEDATE.toString("yyyy/M/d")); // 出産予定日
+	$("#setPWeek").text(bg.PWeek); // 妊娠週数
+	$("#setPDay").text(bg.PDay); // 妊娠週日数
+	$("#setPMonth").text(bg.PMonth); // 妊娠付き数
+	$("#setPCountdownDays").text(bg.PCountdownDays); // 出産予定日まであと何日
+	bg.setBadge(); // バッヂ表示をリフレッシュ
 }
 
 /////////////////////////////////
@@ -155,12 +144,14 @@ var resetPregnancyDate = function(){
 			localStorage.YYYY = "";
 			localStorage.MM = "";
 			localStorage.DD = "";
-			PWeek = "";
-			PDay = "";
-			PMonth = "";
-			PCountdownDays = "";
-			TODAY = "";
-			DUEDATE = "";
+			bg.PWeek = "";
+			bg.PDay = "";
+			bg.PMonth = "";
+			bg.PCountdownDays = "";
+			bg.DUEDATE = "";
+			bg.PWeekDay = "";
+			
+			bg.setBadge(); // バッヂ表示をリフレッシュ
 
 			// デバッグ
 			console.log("リセットを押したぞ");
