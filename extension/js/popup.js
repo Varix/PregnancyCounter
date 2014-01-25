@@ -147,41 +147,6 @@ var setPregnancyDate = function(){
 	);
 }
 
-
-// /////////////////////////////////
-// // 妊娠週数＆月数を出産予定日から計算する
-// /////////////////////////////////
-// var countPregnancyDate = function(YYYY, MM, DD){
-
-// 	// 今日の日付をXDateオブジェクトとして格納
-// 	var TODAY = new XDate();
-
-// 	// 出産予定日の日付をXDateオブジェクトとして格納
-// 	bg.DUEDATE = new XDate(YYYY, MM - 1, DD);
-
-// 	// 出産予定日から今日が妊娠何週何日かを計算
-// 	// (出産予定日 - 今日) / 7 = 残り何週か
-// 	// (出産予定日 - 今日) % 7 = 残り何日か
-// 	// Math.ceil() で数字切り上げ
-// 	var diffWeek = Math.ceil((Math.ceil(TODAY.diffDays(bg.DUEDATE))) / 7);
-// 	var diffDay = (Math.ceil(TODAY.diffDays(bg.DUEDATE))) % 7;
-
-// 	// 満期40週から差分を引くと現在の妊娠週数
-// 	bg.PWeek = 40 - diffWeek;
-// 	bg.PDay = 7 - diffDay;
-// 	// (現在の週数 * 7) + 日数 を 28日 で割って数値を切り上げると現在の妊娠月数
-// 	bg.PMonth = Math.ceil((Number((bg.PWeek * 7)) + Number(bg.PDay)) / 28);
-// 	bg.PCountdownDays = Math.ceil(TODAY.diffDays(bg.DUEDATE));
-// 	bg.PWeekDay = bg.PWeek + "w" + bg.PDay + "d";
-
-// 	// デバッグ
-// 	console.log("今日は " + TODAY.toString("yyyy/M/d"));
-// 	console.log("出産予定日は " + bg.DUEDATE.toString("yyyy/M/d"));
-// 	console.log("妊娠週数は " + bg.PWeek + "週" + bg.PDay + "日");
-// 	console.log("出産予定日まであと " + Math.ceil(TODAY.diffDays(bg.DUEDATE)) + " 日");
-// 	console.log("バッヂに表示するテキストは " + bg.PWeek + "w" + bg.PDay + "d");
-// }
-
 /////////////////////////////////
 // 妊娠週数＆月数を表示画面に設定する
 /////////////////////////////////

@@ -47,30 +47,19 @@ var countPregnancyDate = function(YYYY, MM, DD){
 	// 満期40週から差分を引くと現在の妊娠週数
 	PWeek = 40 - diffWeek;
 	PDay = 7 - diffDay;
+	if (PDay == 7){PDay = 0;}; // 7日目とは数えないので7日の場合は0日と表記
 	// (現在の週数 * 7) + 日数 を 28日 で割って数値を切り上げると現在の妊娠月数
 	PMonth = Math.ceil((Number((PWeek * 7)) + Number(PDay)) / 28);
 	PCountdownDays = Math.ceil(TODAY.diffDays(DUEDATE));
 	PWeekDay = PWeek + "w" + PDay + "d";
 
-	// デバッグ
-	console.log("今日は " + TODAY.toString("yyyy/M/d"));
-	console.log("出産予定日は " + DUEDATE.toString("yyyy/M/d"));
-	console.log("妊娠週数は " + PWeek + "週" + PDay + "日");
-	console.log("出産予定日まであと " + Math.ceil(TODAY.diffDays(DUEDATE)) + " 日");
-	console.log("バッヂに表示するテキストは " + PWeek + "w" + PDay + "d");
+	// // デバッグ
+	// console.log("今日は " + TODAY.toString("yyyy/M/d"));
+	// console.log("出産予定日は " + DUEDATE.toString("yyyy/M/d"));
+	// console.log("妊娠週数は " + PWeek + "週" + PDay + "日");
+	// console.log("出産予定日まであと " + Math.ceil(TODAY.diffDays(DUEDATE)) + " 日");
+	// console.log("バッヂに表示するテキストは " + PWeek + "w" + PDay + "d");
 }
-
-// /////////////////////////////////
-// // 妊娠週数＆月数を表示画面に設定する
-// /////////////////////////////////
-// var setPregnancyDateTxt = function(){
-// 	$("#setDUEDATE").text(DUEDATE.toString("yyyy/M/d")); // 出産予定日
-// 	$("#setPWeek").text(PWeek); // 妊娠週数
-// 	$("#setPDay").text(PDay); // 妊娠週日数
-// 	$("#setPMonth").text(PMonth); // 妊娠付き数
-// 	$("#setPCountdownDays").text(PCountdownDays); // 出産予定日まであと何日
-// 	setBadge(); // バッヂ表示をリフレッシュ
-// }
 
 if(localStorage.saveFlag == "YES"){
 	countPregnancyDate();
