@@ -102,6 +102,10 @@ $(function () {
 /////////////////////////////////
 var controlPregnancyDate = function(){
 
+	// 一度プルダウンの内容を空にする
+	$("#inputYYYY").empty();
+	$("#inputMM").empty();
+
 	// 今日の日時を取得
 	var TODAY = XDate();
 
