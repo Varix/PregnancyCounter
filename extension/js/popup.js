@@ -221,6 +221,9 @@ var resetPregnancyDate = function(){
 			// 出産予定日を保存したフラグをNOに変更
 			localStorage.saveFlag = "NO";
 
+			// 出産予定日の入力可能数字を制御
+			controlPregnancyDate();
+
 			// 妊娠週を非表示にして、出産予定日入力エリアを表示する
 			$("#showCountArea").css({display:"none"});
 			$("#showInputArea").css({display:"inline"});
@@ -237,6 +240,9 @@ var resetPregnancyDate = function(){
 			bg.PWeekDay = "";
 
 			bg.setBadge(); // バッヂ表示をリフレッシュ
+
+			// 出産予定日を指定して設定ボタン押下
+			setPregnancyDate();
 
 			// // デバッグ
 			// console.log("リセットしたぞ");
