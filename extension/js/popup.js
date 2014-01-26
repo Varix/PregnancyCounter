@@ -47,6 +47,11 @@ $(function () {
 		$("#showCountArea").css({display:"none"});
 		$("#showInputArea").css({display:"inline"});
 
+		// フォーム周りに装飾がつくのを防ぐ
+		$("#inputYYYY").css("outline","none");
+		$("#inputMM").css("outline","none");
+		$("#inputDD").css("outline","none");
+
 		// 出産予定日を指定して設定ボタン押下
 		setPregnancyDate();
 
@@ -72,7 +77,7 @@ $(function () {
 		$("#showCountArea").css({display:"inline"});
 		$("#showInputArea").css({display:"none"});
 
-		// 変更ボタンにフォーカスが当たるのを防ぐ
+		// 変更ボタンに装飾がつくのを防ぐ
 		$("#resetPregnancyDate").css("outline","none");
 
 		// // デバッグ

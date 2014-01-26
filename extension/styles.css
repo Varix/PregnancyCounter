@@ -53,3 +53,23 @@ body{
 	margin: 20px;
 	text-align: center;
 }
+
+.btn-primary {
+  background-color: #006dcc;
+  color: #ffffff;
+  background-image: -moz-linear-gradient(top, #232f7f, #171f55);
+  background-image: -ms-linear-gradient(top, #232f7f, #171f55);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#232f7f), to(#171f55));
+  background-image: -webkit-linear-gradient(top, #232f7f, #171f55);
+  background-image: -o-linear-gradient(top, #232f7f, #171f55);
+  background-image: linear-gradient(top, #232f7f, #171f55);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#'232f7f, endColorstr='#'171f55, GradientType=0);
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.disabled,
+.btn-primary[disabled] {
+  background-color: #171f55;
+}
