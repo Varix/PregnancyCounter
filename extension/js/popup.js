@@ -13,6 +13,7 @@
 // - リセットじゃなくて変更に文言変更する。
 // - 月の数字にあわせて、日の表示をコントロールしたい（30,31,うるう年）
 // - jQueryで動的にoptionを生成するようにしたい。
+// - 出産予定日を変更にフォーカスがあたらないようにしたい。
 /////////////////////////////////
 
 /////////////////////////////////
@@ -69,6 +70,9 @@ $(function () {
 		$("#showCountArea").css({display:"inline"});
 		$("#showInputArea").css({display:"none"});
 
+		// 変更ボタンにフォーカスが当たるのを防ぐ
+		$("#resetPregnancyDate").css("outline","none");
+
 		// // デバッグ
 		// console.log("出産予定日が設定されてるぞ");
 		// console.log("localStorage.saveFlag = " + localStorage.saveFlag);
@@ -80,7 +84,7 @@ $(function () {
 
 	};
 
-	// 出産予定日をリセット
+	// 出産予定日を変更
 	resetPregnancyDate();
 
 
@@ -90,6 +94,7 @@ $(function () {
 // 出産予定日の入力可能数字を制御
 /////////////////////////////////
 var controlPregnancyDate = function(){
+
 	// 今日の日時を取得
 	var TODAY = XDate();
 
@@ -106,8 +111,11 @@ var controlPregnancyDate = function(){
 	$("#inputMM>option:eq(" + thisMonth + ")").attr("selected","selected");
 
 	// 入力可能な日の設定: 初期値は現在の日
-	// 選択されている月に応じて、入力できる日を制限したい ex.30日までの月, 31日まである月, うる年
 	controlDay();
+
+	// 今日を初期値として選択
+	var thisDay = Number(TODAY.getDate()) - 1;
+	$("#inputDD>option:eq(" + thisDay + ")").attr("selected","selected");
 
 	// 年または月の表示が変わるたびに日の表示数を制御
 	$("#inputYYYY").change(function(){
@@ -117,12 +125,6 @@ var controlPregnancyDate = function(){
 		controlDay();
 	});
 
-	// 今日を初期値として選択
-	var thisDay = Number(TODAY.getDate()) - 1;
-	$("#inputDD>option:eq(" + thisDay + ")").attr("selected","selected");
-
-	// console.log(TODAY.getMonth() + 1);
-	// console.log($("#inputMM>option:eq(0)").text(1));
 }
 
 /////////////////////////////////
@@ -130,7 +132,7 @@ var controlPregnancyDate = function(){
 /////////////////////////////////
 var controlDay = function(){
 
-	// 一度option内を空にする
+	// 一度プルダウンの内容を空にする
 	$("#inputDD").empty();
 
 	// 2月の場合
@@ -138,26 +140,23 @@ var controlDay = function(){
 
 		// うるう年の場合（西暦が 4,100,400 のいづれでも割り切れる場合）
 		if($("#inputYYYY").val() % 4 == 0 && $("#inputYYYY").val() % 100 == 0 && $("#inputYYYY").val() % 400 == 0){
-		//if($("#inputYYYY").val() == 2014){
-			// console.log("2014年だお");
 			for(var i = 0; i < 29; i++){
 				$("#inputDD").append($("<option></option>").text(i + 1));
 			};
 		// うるう年ではない場合
 		}else{
-			// console.log("2015年だお");
 			for(var i = 0; i < 28; i++){
 				$("#inputDD").append($("<option></option>").text(i + 1));
 			};
 		}
 
-	// 30日までしかない月（4,6,9,11月）
+	// 30日までしかない月の場合（4,6,9,11月）
 	}else if($("#inputMM").val() == 4 || $("#inputMM").val() == 6 || $("#inputMM").val() == 9 || $("#inputMM").val() == 11){
 		for(var i = 0; i < 30; i++){
 			$("#inputDD").append($("<option></option>").text(i + 1));
 		};
 
-	// 31日まである月（それ以外）
+	// 31日まである月の場合（2,4,6,9,11月以外）
 	}else{
 		for(var i = 0; i < 31; i++){
 			$("#inputDD").append($("<option></option>").text(i + 1));
@@ -200,18 +199,21 @@ var setPregnancyDate = function(){
 // 妊娠週数＆月数を表示画面に設定する
 /////////////////////////////////
 var setPregnancyDateTxt = function(){
+
 	$("#setDUEDATE").text(bg.DUEDATE.toString("yyyy/M/d")); // 出産予定日
 	$("#setPWeek").text(bg.PWeek); // 妊娠週数
 	$("#setPDay").text(bg.PDay); // 妊娠週日数
-	$("#setPMonth").text(bg.PMonth); // 妊娠付き数
+	$("#setPMonth").text(bg.PMonth); // 妊娠月数
 	$("#setPCountdownDays").text(bg.PCountdownDays); // 出産予定日まであと何日
 	bg.setBadge(); // バッヂ表示をリフレッシュ
+
 }
 
 /////////////////////////////////
 // 出生予定日をリセットする処理
 /////////////////////////////////
 var resetPregnancyDate = function(){
+
 	// リセットボタンを押したら
 	$("#resetPregnancyDate").click(
 		function(){
