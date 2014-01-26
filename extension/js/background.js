@@ -64,6 +64,14 @@ var countPregnancyDate = function(YYYY, MM, DD){
 	// console.log("バッヂに表示するテキストは " + PWeek + "w" + PDay + "d");
 }
 
+/////////////////////////////////
+// 日付が変わるタイミングでバッヂテキストを更新する
+/////////////////////////////////
+var countDailyTimer = function(){
+	var NOW = XDate();
+	// まだ途中
+}
+
 if(localStorage.saveFlag == "YES"){
 	countPregnancyDate();
 }

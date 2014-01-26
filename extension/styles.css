@@ -31,8 +31,14 @@ body{
 	font-size: 24px;
 }
 
-.commentArea{
+.countdownArea{
+	display: inline;
 	margin: 6px;
+}
+
+.commentArea{
+	display: none;
+	margin: 10px;
 }
 
 #resetArea{
