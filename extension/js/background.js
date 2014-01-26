@@ -18,11 +18,14 @@ var PCountdownDays = "";
 var PWeekDay = ""; // バッヂ表示用
 
 /////////////////////////////////
-// BrouserAction アイコンのバッヂテキストを設定
+// BrouserAction アイコンのバッヂテキスト＆色を設定
 /////////////////////////////////
 var setBadge = function(){
 	chrome.browserAction.setBadgeText({
 		text:PWeekDay
+	});
+	chrome.browserAction.setBadgeBackgroundColor({
+		color:[23,31,85,255]
 	});
 };
 

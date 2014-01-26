@@ -1,7 +1,8 @@
 body{
 	min-width: 250px;
-	background: #FFF;
+	background: #fdf4f4;
 	margin: 10px;
+	color: #333333;
 	font-size: 12px;
 	font-family: "游ゴシック体", "Yu Gothic", YuGothic, sans-serif;
 }
@@ -20,7 +21,13 @@ body{
 	margin: 6px;
 }
 
+.countDuedateArea{
+	background: url("img/maskingtape.png");
+	line-height: 26px;
+}
+
 .countTxt{
+	color: #171f55;
 	font-size: 24px;
 }
 
@@ -29,7 +36,6 @@ body{
 }
 
 #resetArea{
-	font-size: 8px;
 	text-align: right;
 }
 
