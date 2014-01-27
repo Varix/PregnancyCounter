@@ -21,9 +21,13 @@ var PWeekDay = ""; // バッヂ表示用
 // BrouserAction アイコンのバッヂテキスト＆色を設定
 /////////////////////////////////
 var setBadge = function(){
+
+ 	// バッヂテキストを設定
 	chrome.browserAction.setBadgeText({
 		text:PWeekDay
 	});
+
+	// バッヂ背景色を設定
 	chrome.browserAction.setBadgeBackgroundColor({
 		color:[23,31,85,255] // R,G,B,Alpha で指定
 	});
@@ -77,7 +81,7 @@ var countPregnancyDate = function(YYYY, MM, DD){
 	}
 
 	// (現在の週数 * 7) + 日数 を 28日 で割って数値を切り上げると現在の妊娠月数
-	PMonth = Math.ceil((Number((PWeek * 7)) + Number(PDay)) / 28);
+	PMonth = Math.ceil((Number((PWeek * 7)) + Number(PDay + 1)) / 28);
 	PCountdownDays = Math.ceil(TODAY.diffDays(DUEDATE));
 	PWeekDay = PWeek + "w" + PDay + "d";
 
@@ -89,13 +93,26 @@ var countPregnancyDate = function(YYYY, MM, DD){
 	// console.log("バッヂに表示するテキストは " + PWeek + "w" + PDay + "d");
 }
 
-/////////////////////////////////
-// 日付が変わるタイミングでバッヂテキストを更新する
-/////////////////////////////////
-var countDailyTimer = function(){
-	var NOW = XDate();
-	// まだ途中
-}
+// /////////////////////////////////
+// // 日付が変わるタイミングでバッヂテキストを更新する
+// /////////////////////////////////
+// var updateBadgeText = function(){
+
+// 	// タイマーを発動させる日時を設定する
+// 	// 現在日時を取得しその日の夜中0時にタイマーが発動するようにする
+// 	var nextMidnight = XDate();
+// 	nextMidnight.addDays(1);
+// 	nextMidnight.setHours(0);
+// 	nextMidnight.setMinutes(0);
+// 	nextMidnight.setSeconds(0);
+// 	nextMidnight.setMilliseconds(0);
+
+// 	var timer = XDate().diffMilliseconds(nextMidnight);
+
+// 	setTimeout("countPregnancyDate()", timer);
+// 	setBadge();
+	
+// }
 
 if(localStorage.saveFlag == "YES"){
 	countPregnancyDate();
