@@ -1,7 +1,7 @@
 {
     "name": "Pregnancy Counter - 妊娠カウンター",
     "description": "出産予定日から計算して現在の妊娠週数を表示するExtensionです。妊婦さん本人はもちろん、家族・友人の妊娠週数を把握したいときなどにご活用ください。",
-    "version": "0.7.2",
+    "version": "0.7.3",
 	"manifest_version": 2,
 	"icons":{
 		"16":"img/icon_16.png",

@@ -25,7 +25,7 @@ var setBadge = function(){
 		text:PWeekDay
 	});
 	chrome.browserAction.setBadgeBackgroundColor({
-		color:[23,31,85,255]
+		color:[23,31,85,255] // R,G,B,Alpha で指定
 	});
 };
 
@@ -40,17 +40,42 @@ var countPregnancyDate = function(YYYY, MM, DD){
 	// 出産予定日の日付をXDateオブジェクトとして格納
 	DUEDATE = new XDate(YYYY, MM - 1, DD);
 
-	// 出産予定日から今日が妊娠何週何日かを計算
-	// (出産予定日 - 今日) / 7 = 残り何週か
-	// (出産予定日 - 今日) % 7 = 残り何日か
-	// Math.ceil() で数字切り上げ
-	var diffWeek = Math.ceil((Math.ceil(TODAY.diffDays(DUEDATE))) / 7);
-	var diffDay = (Math.ceil(TODAY.diffDays(DUEDATE))) % 7;
+	// 出産予定日が今日より未来の日付だった場合
+	if(TODAY.diffDays(DUEDATE) > 0){
+	
+		// 出産予定日から今日が妊娠何週何日かを計算
+		// (出産予定日 - 今日) / 7 = 残り何週か
+		// (出産予定日 - 今日) % 7 = 残り何日か
+		// Math.ceil() で数字切り上げ
+		var diffWeek = Math.ceil((Math.ceil(TODAY.diffDays(DUEDATE))) / 7);
+		var diffDay = (Math.ceil(TODAY.diffDays(DUEDATE))) % 7;
 
-	// 満期40週から差分を引くと現在の妊娠週数
-	PWeek = 40 - diffWeek;
-	PDay = 7 - diffDay;
-	if (PDay == 7){PDay = 0;}; // 7日目とは数えないので7日の場合は0日と表記
+		// 満期40週から差分を引くと現在の妊娠週数
+		PWeek = 40 - diffWeek;
+		PDay = 7 - diffDay;
+
+		// 7日目とは数えないので7日の場合は0日と表記
+		if (PDay == 7){
+			PDay = 0;
+		};
+
+	// 出産予定日が今日より過去の日付だった場合
+	}else{
+
+		var diffWeek = Math.ceil((Math.ceil(DUEDATE.diffDays(TODAY))) / 7);
+		var diffDay = (Math.ceil(DUEDATE.diffDays(TODAY))) % 7;
+
+		// 満期40週に差分を足すと妊娠週数
+		PWeek = 39 + diffWeek;
+		PDay = diffDay - 1;
+
+		// 変な数字になるので無理やり微調整
+		if(PDay == -1){
+			PDay = 6;
+		};
+
+	}
+
 	// (現在の週数 * 7) + 日数 を 28日 で割って数値を切り上げると現在の妊娠月数
 	PMonth = Math.ceil((Number((PWeek * 7)) + Number(PDay)) / 28);
 	PCountdownDays = Math.ceil(TODAY.diffDays(DUEDATE));
