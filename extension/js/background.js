@@ -15,7 +15,7 @@ var PWeek = "";
 var PDay = "";
 var PMonth = "";
 var PCountdownDays = "";
-var PWeekDay = ""; // バッヂ表示用
+var PWeekDay = "";
 
 /////////////////////////////////
 // BrouserAction アイコンのバッヂテキスト＆色を設定
@@ -24,7 +24,7 @@ var setBadge = function(){
 
  	// バッヂテキストを設定
 	chrome.browserAction.setBadgeText({
-		text:PWeekDay
+		text: PWeekDay
 	});
 
 	// バッヂ背景色を設定
@@ -93,29 +93,49 @@ var countPregnancyDate = function(YYYY, MM, DD){
 	// console.log("バッヂに表示するテキストは " + PWeek + "w" + PDay + "d");
 }
 
-// /////////////////////////////////
-// // 日付が変わるタイミングでバッヂテキストを更新する
-// /////////////////////////////////
-// var updateBadgeText = function(){
+/////////////////////////////////
+// 日付が変わるタイミングでバッヂテキストを更新する
+/////////////////////////////////
+var updateBadgeText = function(){
 
-// 	// タイマーを発動させる日時を設定する
-// 	// 現在日時を取得しその日の夜中0時にタイマーが発動するようにする
-// 	var nextMidnight = XDate();
-// 	nextMidnight.addDays(1);
-// 	nextMidnight.setHours(0);
-// 	nextMidnight.setMinutes(0);
-// 	nextMidnight.setSeconds(0);
-// 	nextMidnight.setMilliseconds(0);
-
-// 	var timer = XDate().diffMilliseconds(nextMidnight);
-
-// 	setTimeout("countPregnancyDate()", timer);
-// 	setBadge();
+	// タイマーを発動させる日時を設定する
+	// 現在日時を取得しその日の夜中0時にタイマーが発動するようにする
+	var nextMidnight = XDate();
+	nextMidnight.addDays(1);
+	nextMidnight.setHours(0);
+	nextMidnight.setMinutes(0);
+	nextMidnight.setSeconds(0);
+	nextMidnight.setMilliseconds(0);
 	
-// }
+	// デバッグ用
+	// console.log("updateBadgeText();");
+	// console.log("PDay = " + PDay);
+	// nextMidnight.addMilliseconds(999);
 
-if(localStorage.saveFlag == "YES"){
-	countPregnancyDate();
+	var timer = XDate().diffMilliseconds(nextMidnight);
+
+	countPregnancyDate(localStorage.YYYY, localStorage.MM, localStorage.DD);
+	setBadge();
+	setTimeout(
+		function(){
+			updateBadgeText();
+		},
+		timer
+	);
+
+	// デバッグ用
+	// PDay = PDay + 1;
+	// setBadge();
+	// setTimeout(
+	// 	function(){
+	// 		updateBadgeText();
+	// 	},
+	// 	timer
+	// );
+
 }
 
-setBadge();
+if(localStorage.saveFlag == "YES"){
+	countPregnancyDate(localStorage.YYYY, localStorage.MM, localStorage.DD);
+	setBadge();
+}

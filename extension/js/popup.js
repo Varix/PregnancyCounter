@@ -1,9 +1,8 @@
 /////////////////////////////////
 // # TODO
-// - バッヂ表示をタイマー更新で日付変わると同時に更新したい。
-// - 妊娠月週日に合わせたアドバイスやテキストを表示するようにしたい。
 // - メモリ消費を抑えるため Event Pages に対応したい。
 // - setTimeout() ではなく chrome.alarm を使うように変更したい。
+// - 妊娠月週日に合わせたアドバイスやテキストを表示するようにしたい。
 /////////////////////////////////
 // # TODO 完了済
 // - 妊娠月週日を表示するようにしたい。
@@ -16,6 +15,7 @@
 // - 出産予定日を変更にフォーカスがあたらないようにしたい。
 // - 出産予定日を過ぎたら「もう産まれた？」とか軽いメッセージに変える。
 // - 過去の日付を入力すると、妊娠週数の日数が変になるバグを直したい。
+// - バッヂ表示をタイマー更新で日付変わると同時に更新したい。
 /////////////////////////////////
 
 /////////////////////////////////
@@ -197,6 +197,7 @@ var setPregnancyDate = function(){
 
 			// 妊娠週数＆月数を表示画面に設定する
 			setPregnancyDateTxt();
+			bg.updateBadgeText();
 
 			// 出産予定日入力エリアを非表示にして、妊娠週エリアを表示する
 			$("#showCountArea").css({display:"inline"});
@@ -256,12 +257,12 @@ var resetPregnancyDate = function(){
 			localStorage.YYYY = "";
 			localStorage.MM = "";
 			localStorage.DD = "";
+			bg.DUEDATE = "";
 			bg.PWeek = "";
 			bg.PDay = "";
 			bg.PMonth = "";
 			bg.PCountdownDays = "";
-			bg.DUEDATE = "";
-			bg.PWeekDay = "";
+			bg.PWeekDay ="";
 
 			// バッヂ表示をリフレッシュ
 			bg.setBadge(); 
