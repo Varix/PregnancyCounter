@@ -2,12 +2,12 @@
 
 // 出産予定日を保存したかどうか判別するフラグ変数
 // var saveFlag = "NO"; // 初期値はNO (NO = 保存してない / YES = 保存してある)
-localStorage.saveFlag = "";
+// localStorage.saveFlag = ""; // ローカルストレージは毎回宣言しなくてOKなのでコメントアウト
 
 // 出産予定日を保存しておくための変数
-localStorage.YYYY = "";
-localStorage.MM = "";
-localStorage.DD = "";
+// localStorage.YYYY = ""; // ローカルストレージは毎回宣言しなくてOKなのでコメントアウト
+// localStorage.MM = ""; // むしろここで宣言するとアップデート時に毎回値がリセットされてしまう
+// localStorage.DD = ""; // ローカルストレージは毎回宣言しなくてOKなのでコメントアウト
 var DUEDATE = ""
 
 // 出産予定日から計算した妊娠週＆日＆月数を格納するための変数
