@@ -1,16 +1,13 @@
 {
     "name": "Pregnancy Counter - 妊娠カウンター",
     "description": "出産予定日から計算して現在の妊娠週数を表示するExtensionです。",
-    "version": "1.1",
+    "version": "1.2",
 	"manifest_version": 2,
 	"icons":{
 		"16":"img/icon_16.png",
 		"48":"img/icon_48.png",
 		"128":"img/icon_128.png"
 	},
-	"permissions": [
-		"tabs", "http://*/*"
-	],
 	"background": {
 		"scripts": ["lib/jquery-1.7.2.min.js", "lib/xdate.js", "js/background.js"]
 	},
