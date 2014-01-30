@@ -148,11 +148,14 @@ var controlDay = function(){
 	// 一度プルダウンの内容を空にする
 	$("#inputDD").empty();
 
+	var mmVal = $("#inputMM").val();
+	var yyyyVal = $("#inputYYYY").val();
+
 	// 2月の場合
 	if($("#inputMM").val() == 2){
 
 		// うるう年の場合（西暦が 4,100,400 のいづれでも割り切れる場合）
-		if($("#inputYYYY").val() % 4 == 0 && $("#inputYYYY").val() % 100 == 0 && $("#inputYYYY").val() % 400 == 0){
+		if(yyyyVal % 4 == 0 && yyyyVal % 100 == 0 && yyyyVal % 400 == 0){
 			for(var i = 0; i < 29; i++){
 				$("#inputDD").append($("<option></option>").text(i + 1));
 			};
@@ -164,7 +167,7 @@ var controlDay = function(){
 		}
 
 	// 30日までしかない月の場合（4,6,9,11月）
-	}else if($("#inputMM").val() == 4 || $("#inputMM").val() == 6 || $("#inputMM").val() == 9 || $("#inputMM").val() == 11){
+	}else if(mmVal == 4 || mmVal == 6 || mmVal == 9 || mmVal == 11){
 		for(var i = 0; i < 30; i++){
 			$("#inputDD").append($("<option></option>").text(i + 1));
 		};
